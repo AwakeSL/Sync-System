@@ -1,5 +1,5 @@
 --!strict
--- Validators/Conditions.lua
+-- Validators/Conditions.luau
 -- Blocks a channel's provide() recompute unless every named condition
 -- function returns the expected boolean value.
 

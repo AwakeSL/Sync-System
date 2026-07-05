@@ -1,5 +1,5 @@
 --!strict
--- Validators/Cooldown.lua
+-- Validators/Cooldown.luau
 -- Blocks a channel's provide() recompute until `Time` seconds have passed
 -- since the last recompute for the given `Key`. This is a LOCAL throttle only
 -- (see SyncChannel docs) - it does not gate any network call.
