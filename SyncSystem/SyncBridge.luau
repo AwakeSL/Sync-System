@@ -1,5 +1,5 @@
 --!strict
--- SyncBridge.lua
+-- SyncBridge.luau
 -- Optional targeted, near-instant messaging layered on top of the
 -- MemoryStore-backed state. Each server subscribes only to its OWN topic
 -- (topicPrefix .. serverId) - never a shared/global topic - so a message

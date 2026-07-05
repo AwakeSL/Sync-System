@@ -1,5 +1,5 @@
 --!strict
--- SyncValidators.lua
+-- SyncValidators.luau
 -- Enum of built-in validator type names, for referencing in channel config
 -- instead of hardcoding strings (mirrors AbilityValidators).
 

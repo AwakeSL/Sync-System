@@ -1,5 +1,5 @@
 --!strict
--- Signal.lua
+-- Signal.luau
 -- Minimal internal Signal implementation used for SyncManager's public events
 -- (Updated, ServerAdded, ServerRemoved, PublishFailed, ReadFailed).
 -- Not part of the public API surface directly, just the thing those fields are.
