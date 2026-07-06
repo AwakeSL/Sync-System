@@ -153,7 +153,7 @@ function SyncManager.new(config: SyncManagerConfig?): SyncManager
 		ReadFailed = Signal.new(),
 	}, SyncManager) :: any
 
-	self._engine = SyncEngine.new(CHUNK_STORE_NAME, SHARD_STORE_NAME, self)
+	self._engine = SyncEngine.new(CHUNK_STORE_NAME, SHARD_STORE_NAME, self._serverId, self)
 
 	local registryHashMap = MemoryStoreService:GetHashMap(REGISTRY_HASHMAP_NAME)
 	local freeQueue = MemoryStoreService:GetQueue(FREE_QUEUE_NAME)
