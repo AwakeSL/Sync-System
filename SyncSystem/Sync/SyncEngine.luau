@@ -35,11 +35,12 @@ local COMBINED_KEY = "combined"
 local NO_CACHE_OPTIONS = Instance.new("DataStoreGetOptions")
 NO_CACHE_OPTIONS.UseCache = false
 
-function SyncEngine.new(chunkStoreName: string, combinedStoreName: string, output: Output): SyncEngine
+function SyncEngine.new(chunkStoreName: string, combinedStoreName: string, localServerId: string, output: Output): SyncEngine
 	return setmetatable({
 		_chunkMap = MemoryStoreService:GetSortedMap(chunkStoreName),
 		_combinedStore = DataStoreService:GetDataStore(combinedStoreName),
 		_combinedKey = COMBINED_KEY,
+		_localServerId = localServerId,   -- ADD THIS
 		_output = output,
 		_knownServerIds = {},
 	}, SyncEngine) :: any
@@ -248,8 +249,11 @@ function SyncEngine.readShards(self: SyncEngine): boolean
 	local seen: { [string]: boolean } = {}
 	for serverId, jsonPart in mergedJson :: { [string]: any } do
 		seen[serverId] = true
-		pcall(self._output.onReceive, self._output, serverId, jsonPart, blobsByServer[serverId] or {})
+		if serverId ~= self._localServerId then
+			pcall(self._output.onReceive, self._output, serverId, jsonPart, blobsByServer[serverId] or {})
+		end
 	end
+end
 
 	for serverId in self._knownServerIds do
 		if not seen[serverId] then
