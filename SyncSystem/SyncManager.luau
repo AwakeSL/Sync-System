@@ -447,11 +447,27 @@ function SyncManager.start(self: SyncManager)
 	self._election:start()
 
 	task.spawn(function()
-		while self._running do
-			self:trigger()
-			task.wait(self._interval)
-		end
-	end)
+    while self._running do
+        self:triggerPublish()
+        self:triggerRead()
+        task.wait(self._interval)
+    end
+end)
+
+task.spawn(function()
+    local combining = false
+    while self._running do
+        if self._election.isMaster and not combining then
+            combining = true
+            task.spawn(function()
+                self:_runMasterCycleIfMaster()
+                combining = false
+            end)
+        end
+        task.wait(self._interval)
+    end
+end)
+
 
 	if self._autoTrigger then
 		local function schedule()
